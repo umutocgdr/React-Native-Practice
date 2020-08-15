@@ -1,0 +1,51 @@
+reactta karşıma çıkan sorunların bir kısmıyla burdaki bilgilerin çoğunu terminale yazarak aştım
+
+
+npm start kullan
+
+Unable to load script.Make sure you are either running a Metro server or that your bundle 'index.android.bundle' is packaged correctly for release
+
+cevabı ou haven't started the bundler yet. Run npm start or react-native start in the root directly of your project before react-native run-android
+
+1. Add react-native-webview to your dependencies
+
+$ yarn add react-native-webview
+(or)
+
+For npm use
+
+$ npm install --save react-native-webview
+2. Link native dependencies
+
+React Native modules that include native Objective-C, Swift, Java, or Kotlin code have to be "linked" so that the compiler knows to include them in the app.
+
+$ react-native link react-native-webview
+iOS:
+
+If using cocoapods in the ios/ directory run
+
+$ pod install
+
+Running the following command in your project root directory to delete the iOS build directory, and to kill other React Native sessions (assuming they're running on default port 8081) before re-building:
+rm -rf ios/build/; kill $(lsof -t -i:8081); react-native run-ios
+
+Update your React Native workflow to avoid these error occur by combining the above combination of commands into an alias and appending it to your Bash config file .bashrc with this command:
+echo "alias rni=\"kill \$(lsof -t -i:8081); rm -rf ios/build/; react-native run-ios\"" >> ~/.bashrc; source ~/.bashrc
+
+Now you can run React Native iOS build (without worrying about some of the common red error screens of death appearing) with a simple alias shortcut:
+
+
+
+What is the meaning of 'No bundle URL present'
+
+I just ran into this problem as well (first time getting started with React Native). The problem disappeared when - while an ios simulation(react-native run-ios) was running - I ran npm install and then react-native run-ios again. In the terminal window, it showed that it was bundling, and then the simulator showed the welcome screen.
+
+Check this link for briefs after react-native init PropertyFinder line try to use npm start (This one works for me)
+
+cd desktop
+react-native init ...
+cd destop
+cd neva
+react-native run-ios --simulator="iPhone XR"
+
+

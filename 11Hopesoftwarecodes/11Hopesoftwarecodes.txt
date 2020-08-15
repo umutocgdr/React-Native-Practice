@@ -1,0 +1,368 @@
+import { createStackNavigator } from 'react-navigation';
+import LoginGiris from './LoginGiris';
+import Hakkimizda from './Hakkimizda';
+import Harita from './Harita';
+import Iletisim from './Iletisim';
+import Urunler from './Urunler';
+import Hizmetler from './Hizmetler';
+export default createStackNavigator(
+  {
+    LoginGiris,
+    Hakkimizda,
+    Harita,
+    Iletisim,
+    Urunler,
+    Hizmetler,
+  },
+  {
+    initialRouteName: 'LoginGiris',
+  }
+);
+////////hakkimizda.js
+import * as React from 'react';
+import { Text, View, Button, ScrollView, TouchableOpacity, Image,Fields } from 'react-native';
+import styles from './styles';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+const Hakkimizda = ({ navigation }) => (
+  <View style={styles.HakkimizdaZemin}>
+  <ScrollView style={{flex:1}}>
+    <Text style={styles.HakkimizdaBaslik}>
+      HAKKIMIZDA
+    </Text>
+    <Text style={{padding:5,fontSize:20} }>
+    Merhaba ben 11HOPE SOFTWARE'in sahibi Umut ÖÇGÜDER
+    11Hope 11 Kasım 2019'da kurulan teknoloji hedefli bir şirkettir. (yalan bu staj ödevim kuruluş tarihi bile yalan moruk)
+    </Text>
+    </ScrollView>
+    <View> 
+    
+<Text style={ { fontSize:15,padding:-5,textAlign: 'center'}}>
+Created by Umut ÖÇGÜDER
+</Text>
+<Text style={{  fontSize:15,textAlign: 'center'}}>
+Design by Ferhat KÜÇÜKŞAKALAK
+</Text>
+
+ </View>
+
+    <View style={{
+      flex:0.1, alignItems: 'center',}}>
+        <TouchableOpacity onPress={() =>
+        navigation.navigate('LoginGiris')}>
+          <Image style={{width:42,height:42}}
+          source={require('./icons8-punisher-512.png')} />
+        </TouchableOpacity>
+    </View>
+  </View>
+);
+
+Hakkimizda.navigationOptions = {
+  header: null
+}
+
+export default Hakkimizda;
+
+
+
+////import * as React from 'react';
+import { Text, View, TouchableOpacity, Image } from 'react-native';
+import styles from './styles';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { MapView } from 'expo';
+const Harita = ({ navigation }) => (
+  <View style={styles.HaritaZemin}>
+    <MapView
+      style={{ flex: 1 }}
+      initialRegion={{
+        latitude: 38.3246814,
+        longitude: 26.7208725,
+        latitudeDelta: 1.3,
+        longitudeDelta: 0.3,
+      }}
+    />
+    <View
+      style={{
+        flex: 0.1,
+        alignItems: 'center',
+      }}>
+      <TouchableOpacity onPress={() => navigation.navigate('LoginGiris')}>
+        <Image
+          style={{ width: 42, height: 42 }}
+          source={require('./icons8-punisher-512.png')}
+        />
+      </TouchableOpacity>
+    </View>
+  </View>
+);
+Harita.navigationOptions = {
+  header: null,
+};
+
+export default Harita;
+
+//////
+
+
+import React, {Component} from 'react';
+import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
+import axios from 'axios';
+
+class Hizmetler extends Component {
+  state = {
+    JsonVeri:[]
+  }
+
+  componentWillMount() {
+    axios.get('http://www.galesizler.com/json.php?Ara=')
+    .then(Gv=>this.setState({JsonVeri:Gv.data}))
+  }
+
+  Detayver =(item) => {
+    alert("Seçtiğiniz Ürünün Numarası: "+item.id);
+  }
+
+  render() {
+    return (
+      <View style={{flex:1,backgroundColor:'white'}}>
+        <ScrollView>
+        {
+          this.state.JsonVeri.map((item, index) => (
+            <TouchableOpacity style={VeriSitil.Str}
+            onPress = {() => this.Detayver(item)}
+            >
+              <Text>{item.acik} {item.fiyat} ₺</Text>
+              <Image style={VeriSitil.Foto} source={{uri:item.foto}} />
+            </TouchableOpacity>
+          ))                                          
+        }
+        </ScrollView>
+      </View>
+    )
+
+  }
+}
+
+export default Hizmetler;
+
+const VeriSitil = StyleSheet.create({
+  Str: {
+    backgroundColor:'green',
+    padding:5,
+    margin:5,
+  },
+  Foto: {
+    width:150,
+    height:150
+  }
+})
+////
+import React, {Component} from 'react';
+import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
+import axios from 'axios';
+
+class Hizmetler extends Component {
+  state = {
+    JsonVeri:[]
+  }
+
+  componentWillMount() {
+    axios.get('http://www.galesizler.com/json.php?Ara=')
+    .then(Gv=>this.setState({JsonVeri:Gv.data}))
+  }
+
+  Detayver =(item) => {
+    alert("Seçtiğiniz Ürünün Numarası: "+item.id);
+  }
+
+  render() {
+    return (
+      <View style={{flex:1,backgroundColor:'white'}}>
+        <ScrollView>
+        {
+          this.state.JsonVeri.map((item, index) => (
+            <TouchableOpacity style={VeriSitil.Str}
+            onPress = {() => this.Detayver(item)}
+            >
+              <Text>{item.acik} {item.fiyat} ₺</Text>
+              <Image style={VeriSitil.Foto} source={{uri:item.foto}} />
+            </TouchableOpacity>
+          ))                                          
+        }
+        </ScrollView>
+      </View>
+    )
+
+  }
+}
+
+export default Hizmetler;
+
+const VeriSitil = StyleSheet.create({
+  Str: {
+    backgroundColor:'green',
+    padding:5,
+    margin:5,
+  },
+  Foto: {
+    width:150,
+    height:150
+  }
+})
+
+////
+import * as React from 'react';
+import { Text, Image, View, WebView, TouchableOpacity } from 'react-native';
+import styles from './styles';
+
+const Iletisim = ({ navigation }) => (
+  <View style={styles.IletisimZemin}>
+  <View style={{flex: 1.1}}> 
+  <Text style={{fontSize:20}}>0(507)-490-2605</Text>
+  
+  </View>
+
+      <View style={{
+      flex:0.1, alignItems: 'center',}}>
+        <TouchableOpacity onPress={() => 
+        navigation.navigate('LoginGiris')}>
+          <Image style={{width:30,height:30}}
+          source={require('./home-512.png')} />
+        </TouchableOpacity>
+    </View>
+  
+  </View>
+);
+
+Iletisim.navigationOptions = {
+  header: null, 
+  headerTintColor: '#fff',
+  title: 'Login Sayfası',
+  headerStyle: {
+    backgroundColor: 'darkred'
+  }
+  
+}
+
+
+export default Iletisim;
+
+
+import * as React from 'react';
+import { Text, View, Image, TouchableOpacity ,ImageBackground,WebView} from 'react-native';
+import styles from './styles';
+
+const LoginGiris = ({ navigation }) => (
+  <View style={styles.LoginAnaZemin}>
+   <ImageBackground source={require('./ASDCXZCZX.png')} 
+    style={{width: '100%', height: '100%'}}>
+      <View style={styles.AnaGirisSatir}>
+        <View style={styles.AnaGirisHucre1}>
+          <Image style={{width:175,height:170}}
+          source={require('./Çalışma Yüzeyi 2.png.png')} />
+          </View>
+          <View style={styles.AnaGirisHucre2}>
+
+          <TouchableOpacity onPress={() =>
+          <WebView
+          source={{uri:'https://google.com'}}
+          style={{marginTop: 20}}
+          />}>
+          <Image style={{width:30,height:30}}
+          source={require('./Çalışma Yüzeyi 2.png.png')}  />
+          </TouchableOpacity> 
+
+          <TouchableOpacity onPress={() =>
+          <WebView
+          source={{uri:'https://google.com'}}
+          style={{marginTop: 20}}
+          />}>
+          <Image style={{width:30,height:30}}
+          source={require('./icons8-facebook-filled-48.png')} />
+          </TouchableOpacity> 
+
+          <TouchableOpacity onPress={() =>
+          <WebView
+          source={{uri:'https://google.com'}}
+          style={{marginTop: 20}}
+          />}>
+          <Image style={{width:30,height:30}}
+          source={require('./icons8-twitter-filled-48.png')} />
+          </TouchableOpacity> 
+
+          <TouchableOpacity onPress={() =>
+          <WebView
+          source={{uri:'https://github.com/facebook/react-native'}}
+          style={{marginTop: 20}}
+          />}>
+          <Image style={{width:30,height:30}}
+          source={require('./icons8-instagram-filled-48.png')} />
+          </TouchableOpacity> 
+
+          <TouchableOpacity onPress={() =>
+          <WebView
+          source={{uri:'https://github.com/facebook/react-native'}}
+          style={{marginTop: 20}}
+          />}>
+          <Image style={{width:30,height:30}}
+          source={require('./icons8-play-button-filled-48.png')} />
+          </TouchableOpacity> 
+
+          <TouchableOpacity onPress={() =>
+          <WebView
+          source={{uri:'https://github.com/facebook/react-native'}}
+          style={{marginTop: 20}}
+          />}>
+          <Image style={{width:30,height:30}}
+          source={require('./icons8-linkedin-filled-48.png')} />
+          </TouchableOpacity> 
+
+          <TouchableOpacity onPress={() =>
+          <WebView
+          source={{uri:'https://github.com/facebook/react-native'}}
+          style={{marginTop: 20}}
+          />}>
+          <Image style={{width:30,height:30}}
+          source={require('./icons8-stack-overflow-filled-48.png')} />
+          </TouchableOpacity> 
+
+          <TouchableOpacity onPress={() =>
+          <WebView
+          source={{uri:'https://github.com/facebook/react-native'}}
+          style={{marginTop: 20}}
+          />}>
+          <Image style={{width:30,height:30}}
+          source={require('./icons8-github-filled-50.png')} />
+          </TouchableOpacity> 
+
+        </View> 
+     </View>
+           <TouchableOpacity style={styles.AnaGirisHucre1} onPress={() => 
+        navigation.navigate('Urunler')}>
+        <Text style={styles.HucreText}>
+        ÜRÜNLER</Text>
+        </TouchableOpacity> 
+
+        <TouchableOpacity style={styles.AnaGirisHucre1} onPress={() => 
+        navigation.navigate('Harita')}> 
+        <Text style={styles.HucreText}>HARİTA</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.AnaGirisHucre1} onPress={() => 
+        navigation.navigate('Hakkimizda')}>
+        <Text style={styles.HucreText}>HAKKIMIZDA</Text>
+        </TouchableOpacity>
+  </ImageBackground>
+  </View>
+);
+
+LoginGiris.navigationOptions = {
+  header: null, 
+  headerTintColor: '#fff',
+  title: 'Login Sayfası',
+  headerStyle: {
+    backgroundColor: 'darkred'
+  }
+  
+}
+export default LoginGiris;

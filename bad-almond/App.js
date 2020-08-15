@@ -1,0 +1,44 @@
+import * as React from 'react';
+import { Text, View, StyleSheet ,ScrollView, Image} from 'react-native';
+import { Constants } from 'expo';
+export default class App extends React.Component {
+  render() {
+    return (
+      <ScrollView>
+      <View style={stil.Ankara}>
+        <Text style={stil.Izmir}>Welcome to Umut Öçgüder's web site </Text>
+        <Image style={stil.Konya} 
+        source = {
+          {uri : 'https://media.licdn.com/dms/image/C5603AQGGZQ8Dn8GAzA/profile-displayphoto-shrink_200_200/0?e=1543449600&v=beta&t=YVELr7qXdYhnChf4eZNM3J8BRsNII-RydELfidWWaEI'}}/>
+           <Image style={stil.Konya} 
+        source = {
+          {uri : 'data:image/jpeg;base64,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'}}/>
+        <Image style={stil.Konya} 
+        source = {
+          {uri : 'https://yt3.ggpht.com/a-/ACSszfEW4C78V3iRsxbfqV74izbP755zZsuwyuodGw=s900-mo-c-c0xffffffff-rj-k-no'}}/>
+      </View>
+      </ScrollView>
+    );
+  }
+}
+const stil = StyleSheet.create({
+
+  Ankara: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'blue',
+  },
+  Izmir: {
+    margin: 24,
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'red',
+ },
+  Konya : {
+    height : 200,
+    width: 200,
+  },
+
+});
